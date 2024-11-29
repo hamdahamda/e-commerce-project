@@ -32,10 +32,8 @@ func SetupRouter() *fiber.App {
 	app.Post("/user_role_map", handler.CreateUserRoleMap)
 	app.Put("/user_role_map/:id", handler.UpdateUserRoleMap)
 	app.Delete("/user_role_map/:id", handler.DeleteUserRoleMap)
-	return app
 
 	// routes categories
-
 	app.Get("/categories", handler.GetCategories)
 	app.Post("/categories", handler.CreateCategory)
 	app.Put("/categories/:id", handler.UpdateCategory)

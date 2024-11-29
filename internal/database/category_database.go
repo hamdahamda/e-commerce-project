@@ -30,19 +30,18 @@ func GetAllCategory() ([]model.Category, error) {
 
 func InsertCategory(category *model.Category) error {
 	sqlStatement := `INSERT INTO categories  (
-                                            category_id,
+   
                                             category_name,
                                             parent_id,
                                             description
 
                                         )
                     VALUES  (
-                                $1, $2, $3, $4
+                                $1, $2, $3
                             ) 
                     RETURNING category_id`
 	return config.DB.QueryRow(
 		sqlStatement,
-		&category.CategoryID,
 		&category.CategoryName,
 		&category.ParentID,
 		&category.Description,
@@ -51,15 +50,15 @@ func InsertCategory(category *model.Category) error {
 
 func UpdateCategory(id string, category *model.Category) error {
 	sqlStatement := `UPDATE categories SET
-                        category_id=$1,
-                        category_name=$2,
-                        parent_id=$3,
-                        description=$4
+  
+                        category_name=$1,
+                        parent_id=$2,
+                        description=$3
                     
-                    WHERE category_id=$5 RETURNING category_id`
+                    WHERE category_id=$4 RETURNING category_id`
 	return config.DB.QueryRow(
 		sqlStatement,
-		&category.CategoryID,
+
 		&category.CategoryName,
 		&category.ParentID,
 		&category.Description,
@@ -69,7 +68,7 @@ func UpdateCategory(id string, category *model.Category) error {
 }
 
 func DeleteCategory(id string) error {
-	sqlStatement := `DELETE FROM categories WHERE user_id =$1`
+	sqlStatement := `DELETE FROM categories WHERE category_id =$1`
 	_, err := config.DB.Exec(sqlStatement, id)
 	return err
 }
