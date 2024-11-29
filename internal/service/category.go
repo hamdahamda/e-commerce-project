@@ -6,17 +6,17 @@ import (
 )
 
 func FetchCategories() ([]model.Category, error) {
-	return database.GetAllUsers()
+	return database.GetAllCategory()
 }
 
-func InsertCategoryr(user *model.Category) error {
-	return database.InsertUser(user)
+func InsertCategory(category *model.Category) error {
+	return database.InsertCategory(category)
 }
 
-func UpdateCategory(id string, user *model.Category) error {
-	return database.UpdateUser(id, user)
+func UpdateCategory(id string, category *model.Category) error {
+	return database.UpdateCategory(id, category)
 }
 
 func DeleteCategory(id string) error {
-	return database.DeleteUser(id)
+	return database.DeleteCategory(id)
 }
