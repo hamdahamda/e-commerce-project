@@ -1,26 +1,23 @@
-# Gunakan base image untuk Golang
-FROM golang:1.20-alpine
+# Gunakan base image golang
+FROM golang:1.19
 
-# Set environment variables
-ENV GO111MODULE=on \
-    CGO_ENABLED=0 \
-    GOOS=linux \
-    GOARCH=amd64
-
-# Tentukan working directory
+# Setel direktori kerja dalam container
 WORKDIR /app
 
-# Copy semua file ke dalam container
-COPY . .
+# Copy go.mod dan go.sum files
+COPY go.mod go.sum ./
 
-# Download module dependencies
+# Unduh dependensi
 RUN go mod download
 
-# Build aplikasi
-RUN go build -o main .
+# Copy seluruh kode sumber
+COPY . .
 
-# Ekspos port yang akan digunakan
+# Build aplikasi Go
+RUN go build -o myapp
+
+# Expose port yang digunakan oleh aplikasi
 EXPOSE 8080
 
 # Jalankan aplikasi
-CMD ["./main"]
+CMD ["./myapp"]
